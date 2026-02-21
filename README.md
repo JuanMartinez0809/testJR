@@ -111,18 +111,6 @@ Ensure `NEXT_PUBLIC_API_URL` was set to `http://localhost:4000` when you ran `np
 
 Protected routes accept auth via header `Authorization: Bearer <token>` or via cookie (name from `JWT_COOKIE_NAME`; set on successful login).
 
-## Deploy
-
-### Backend (AWS Lambda)
-
-1. **MongoDB:** Use Atlas or DocumentDB. Set `MONGODB_URI` in the Lambda environment.
-2. **Build:** From repo root, `npm run build:api` (output in `apps/api/dist`).
-3. **Package:** With Serverless Framework (example):
-   - Create `serverless.yml` in `apps/api` (or repo root) defining a single Lambda, handler pointing to `dist/index.handler` if you wrap Express (e.g. with `serverless-http`), or use a custom runtime that runs `node dist/index.js`.
-   - Set env: `MONGODB_URI`, `JWT_SECRET` (required), `JWT_EXPIRES_IN`, optional `CORS_ORIGIN`, `JWT_COOKIE_NAME`.
-4. **Deploy:** `npx serverless deploy` (or `sam deploy` / CDK deploy depending on choice). Note the API Gateway base URL (e.g. `https://xxxx.execute-api.region.amazonaws.com/dev`).
-5. **Deployed backend URL:** Set this as the public base URL for the API (e.g. in README or submission: `https://your-api-id.execute-api.region.amazonaws.com/dev`).
-
 ### Frontend
 
 - Build: `npm run build:web`. Deploy `apps/web` to Vercel/Netlify (or static export to S3 + CloudFront).
